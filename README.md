@@ -8,4 +8,4 @@
 
 ## 개발 환경
 
-- Front : NextJS, Typescript, Tailwind CSS, Shadcn/ui Zod React-hook-form
+- Front : NextJS, Typescript, Tailwind CSS, Shadcn/ui, Zod, React-hook-form, Zustand
