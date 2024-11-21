@@ -12,13 +12,13 @@ export default function NavigationBar() {
     <div className="w-full mx-auto bg-yellow-600 text-white">
       <div className="flex items-center justify-between px-8">
         <header>
-          <h1 className="text-2xl font-bold sm:text-4xl">
+          <h1 className="text-2xl font-bold sm:text-4xl pt-3">
             <Link href="/">Parking</Link>
           </h1>
         </header>
 
         {/* Shadcn Dropdown Menu */}
-        <div>
+        <div className="pt-3">
           <div className="sm:hidden flex space-x-2 items-start">
             <DropdownMenu>
               <DropdownMenuTrigger>

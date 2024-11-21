@@ -2,12 +2,12 @@ import SearchBar from "@/components/search-bar";
 
 export default function Home() {
   return (
-    <main className="sm:container">
+    <main>
       {/* 검색바 */}
       <SearchBar></SearchBar>
 
       <h3 className="text-2xl sm:text-4xl font-bold text-slate-500 pt-16 pb-16 text-center uppercase tracking-wide">
-        항상 주차 공간이 있습니다.
+        저희는 연중무휴 예약 가능합니다.
       </h3>
 
       <section className="hidden lg:block pt-16 pb-32">

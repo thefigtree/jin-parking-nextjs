@@ -38,7 +38,7 @@ export default function SearchForm() {
 
   return (
     <div className="flex flex-col lg:flex-row">
-      <div className="grid gap-y-1.5 lg:w-1/2">
+      <div className="grid gap-y-2 lg:w-1/2">
         <Label htmlFor="parkingat">주소</Label>
         <Input id="parkingat" placeholder="주소를 입력해주세요."></Input>
       </div>
