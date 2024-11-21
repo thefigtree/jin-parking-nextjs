@@ -39,8 +39,8 @@ export default function SearchForm() {
   return (
     <div className="flex flex-col lg:flex-row">
       <div className="grid gap-y-1.5 lg:w-1/2">
-        <Label htmlFor="parkingat">주소창</Label>
-        <Input id="parkingat" placeholder="address"></Input>
+        <Label htmlFor="parkingat">주소</Label>
+        <Input id="parkingat" placeholder="주소를 입력해주세요."></Input>
       </div>
 
       <Form {...form}>
@@ -55,7 +55,7 @@ export default function SearchForm() {
               <FormItem className="lg:w-[250px] grid">
                 <FormLabel>날짜</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="date"></Input>
+                  <Input {...field} placeholder="날짜를 입력해주세요."></Input>
                 </FormControl>
               </FormItem>
             )}
@@ -66,9 +66,9 @@ export default function SearchForm() {
             name="arrivingtime"
             render={({ field }) => (
               <FormItem className="lg:w-[250px] grid">
-                <FormLabel>시작</FormLabel>
+                <FormLabel>대여 시간</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="start"></Input>
+                  <Input {...field} placeholder="시간을 입력해주세요."></Input>
                 </FormControl>
               </FormItem>
             )}
@@ -79,9 +79,9 @@ export default function SearchForm() {
             name="leavingtime"
             render={({ field }) => (
               <FormItem className="lg:w-[250px] grid">
-                <FormLabel>끝</FormLabel>
+                <FormLabel>반납 시간</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="end"></Input>
+                  <Input {...field} placeholder="시간을 입력해주세요."></Input>
                 </FormControl>
               </FormItem>
             )}
