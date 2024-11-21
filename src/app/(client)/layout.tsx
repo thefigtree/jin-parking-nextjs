@@ -1,4 +1,4 @@
-import Banner from "@/components/banner";
+import NavigationBar from "@/components/navigation-bar";
 
 export default function ClientLayout({
   children,
@@ -7,7 +7,7 @@ export default function ClientLayout({
 }) {
   return (
     <>
-      <Banner></Banner>
+      <NavigationBar></NavigationBar>
       {children}
     </>
   );

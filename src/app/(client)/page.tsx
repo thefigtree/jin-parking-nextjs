@@ -1,8 +1,10 @@
+import SearchBar from "@/components/search-bar";
+
 export default function Home() {
   return (
     <main className="sm:container">
       {/* 검색바 */}
-      <h1>Search</h1>
+      <SearchBar></SearchBar>
 
       <h3 className="text-2xl sm:text-4xl font-bold text-slate-500 pt-16 pb-16 text-center uppercase tracking-wide">
         항상 주차 공간이 있습니다.

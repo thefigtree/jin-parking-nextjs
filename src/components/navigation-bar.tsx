@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
 
-export default function Banner() {
+export default function NavigationBar() {
   return (
     <div className="w-full mx-auto bg-yellow-600 text-white">
       <div className="flex items-center justify-between px-8">
