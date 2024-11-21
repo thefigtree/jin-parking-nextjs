@@ -4,15 +4,16 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "./ui/button";
 
 const FormSchema = z.object({
   arrivingon: z.string({
     required_error: "날짜는 필수입니다.",
   }),
-  gpscoords: z.object({
-    lat: z.number(),
-    lng: z.number(),
-  }),
+  //   gpscoords: z.object({
+  //     lat: z.number(),
+  //     lng: z.number(),
+  //   }),
   arrivingtime: z.string({
     required_error: "시간은 필수입니다.",
   }),
@@ -25,6 +26,8 @@ export default function SearchForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      arrivingon: "",
+      arrivingtime: "",
       leavingtime: "",
     },
   });
@@ -50,13 +53,41 @@ export default function SearchForm() {
             name="arrivingon"
             render={({ field }) => (
               <FormItem className="lg:w-[250px] grid">
-                <FormLabel>도착 시간</FormLabel>
+                <FormLabel>날짜</FormLabel>
                 <FormControl>
                   <Input {...field} placeholder="date"></Input>
                 </FormControl>
               </FormItem>
             )}
           ></FormField>
+
+          <FormField
+            control={form.control}
+            name="arrivingtime"
+            render={({ field }) => (
+              <FormItem className="lg:w-[250px] grid">
+                <FormLabel>시작</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="start"></Input>
+                </FormControl>
+              </FormItem>
+            )}
+          ></FormField>
+
+          <FormField
+            control={form.control}
+            name="leavingtime"
+            render={({ field }) => (
+              <FormItem className="lg:w-[250px] grid">
+                <FormLabel>끝</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="end"></Input>
+                </FormControl>
+              </FormItem>
+            )}
+          ></FormField>
+
+          <Button type="submit">Submit</Button>
         </form>
       </Form>
     </div>
