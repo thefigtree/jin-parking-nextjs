@@ -1,3 +1,5 @@
-export default function Dashboard() {
-  return <div>page</div>;
+import LocationTitlePage from "./locations/title/page";
+
+export default function Page() {
+  return <LocationTitlePage></LocationTitlePage>;
 }

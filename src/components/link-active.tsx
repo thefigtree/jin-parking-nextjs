@@ -15,7 +15,7 @@ export default function LinkActive({ children, href }: Props) {
 
   return (
     <Link href={href} className={`${isActive}`}>
-      <div className={cn("px-4 py-2 rounded-md hover:bg-yellow-950", isActive)}>
+      <div className={cn("px-4 py-2 rounded-md hover:bg-yellow-100", isActive)}>
         {children}
       </div>
     </Link>
