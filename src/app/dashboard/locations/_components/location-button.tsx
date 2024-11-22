@@ -11,7 +11,8 @@ export default function LocationButton() {
     <div>
       <div className="flex flex-col">
         <Button className="self-end" onClick={() => setOpen(true)}>
-          <PlusIcon className="mr-2">위치를 추가해야 합니다.</PlusIcon>
+          <PlusIcon className="mr-2"></PlusIcon>
+          위치를 추가해야 합니다.
         </Button>
       </div>
     </div>

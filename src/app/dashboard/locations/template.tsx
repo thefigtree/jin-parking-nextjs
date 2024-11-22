@@ -1,10 +1,11 @@
+import React from "react";
 import LocationButton from "./_components/location-button";
 
-export default function Page({ children }: { children: React.ReactNode }) {
+export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      {children}
       <LocationButton></LocationButton>
+      {children}
     </div>
   );
 }

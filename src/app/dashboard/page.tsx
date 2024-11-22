@@ -1,5 +1,5 @@
-import LocationTitlePage from "./locations/title/page";
+import LocationTilePage from "./locations/tile/page";
 
 export default function Page() {
-  return <LocationTitlePage></LocationTitlePage>;
+  return <LocationTilePage></LocationTilePage>;
 }

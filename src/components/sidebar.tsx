@@ -17,7 +17,7 @@ export default function Sidebar() {
       <div className="flex flex-col justify-between h-full">
         <ul className="w-full pt-8 space-y-2 flex flex-col">
           <li>
-            <LinkActive href="/dashboard/locations/title">위치 보기</LinkActive>
+            <LinkActive href="/dashboard/locations/tile">위치 보기</LinkActive>
           </li>
 
           <li>
