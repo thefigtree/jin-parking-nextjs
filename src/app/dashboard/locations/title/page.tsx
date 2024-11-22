@@ -1,3 +1,3 @@
 export default function LocationTitlePage() {
-  return <div>page</div>;
+  return <div>Location</div>;
 }
