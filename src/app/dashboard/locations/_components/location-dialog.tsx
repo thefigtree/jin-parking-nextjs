@@ -14,6 +14,7 @@ import LocationSpot from "./location-spot";
 import NumberSpot from "./number-spot";
 import PriceSpot from "./price-spot";
 import TotalSpot from "./total-spot";
+import { toast } from "sonner";
 
 const totalSteps = 4;
 
@@ -48,9 +49,28 @@ export default function LocationDialog({ id = null, open, setOpen }: Props) {
     }
   }, [id, open]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // db에 데이터 저장 함수
-    console.log(spotStore.data);
+    setSubmit(true);
+
+    const data = new FormData();
+
+    data.set("data", JSON.stringify(spotStore.data));
+
+    const result = await fetch("/api/location/new", {
+      method: "POST",
+      body: data,
+    });
+
+    setSubmit(false);
+
+    if (result.ok) {
+      toast.success("주차 장소가 등록 되었습니다.");
+
+      router.refresh();
+    } else {
+      toast.error("주차 장소를 등록할 수 없습니다.");
+    }
   };
 
   const handleAnother = () => {
