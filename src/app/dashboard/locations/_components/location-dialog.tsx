@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -11,7 +10,8 @@ import { Progress } from "@/components/ui/progress";
 import { useSpotStore } from "@/store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import MySpot from "./my-spot";
+import LocationSpot from "./location-spot";
+import NumberSpot from "./number-spot";
 
 const totalSteps = 4;
 
@@ -57,11 +57,18 @@ export default function LocationDialog({ id = null, open, setOpen }: Props) {
     spotStore.restart();
   };
 
-  // 단계 증가 핸들러
+  // 다음 페이지 이동 핸들러
   const handleNextChange = () => {
     if (step === totalSteps) return;
 
     setStep((currentStep) => currentStep + 1);
+  };
+
+  // 이전 페이지 이동 핸들러
+  const handlePrevChange = () => {
+    if (step === 1) return;
+
+    setStep((currentStep) => currentStep - 1);
   };
 
   const handleOnInteracOutside = (e: Event) => {
@@ -87,16 +94,26 @@ export default function LocationDialog({ id = null, open, setOpen }: Props) {
             <Progress value={step * stepIncrement}></Progress>
             {
               {
-                1: <MySpot onNext={handleNextChange}></MySpot>,
+                1: <LocationSpot onNext={handleNextChange}></LocationSpot>,
+                2: (
+                  <NumberSpot
+                    onNext={handleNextChange}
+                    onPrev={handlePrevChange}
+                  ></NumberSpot>
+                ),
               }[step]
             }
           </div>
-
-          <DialogDescription>Fixed the warning</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
-          <div className="flex flex-col mt-4 w-full space-y-2">
+          <div
+            className={`${
+              step < totalSteps
+                ? "hidden"
+                : "flex flex-col mt-4 w-full space-y-2"
+            }`}
+          >
             <Button type="button" onClick={handleSubmit}>
               등록하기
             </Button>

@@ -1,11 +1,12 @@
 import AddressInput from "@/components/address-input";
+import { Button } from "@/components/ui/button";
 import { useSpotStore } from "@/store";
 import { LatLng } from "@/types/address";
 import { spotPropsType } from "@/types/spot";
 
 import { useState } from "react";
 
-export default function MySpot({ onNext }: spotPropsType) {
+export default function LocationSpot({ onNext }: spotPropsType) {
   const [message, setMessage] = useState<string>("");
 
   const spotStore = useSpotStore();
@@ -26,13 +27,21 @@ export default function MySpot({ onNext }: spotPropsType) {
   };
 
   return (
-    <div className="grid w-full gap-1 5">
+    <div className="grid w-full gap-1">
       <h2 className="text-xl sm:text-2xl py-4 font-semibold">주소</h2>
 
       <AddressInput
         onSelect={handleAddressSelect}
         selected={spotStore.data.address}
       ></AddressInput>
+
+      <p className="text-red-500 text-sm">{message}</p>
+
+      <div className="flex justify-end py-4">
+        <Button type="button" onClick={onSubmit} variant="ghost">
+          다음 &gt;
+        </Button>
+      </div>
     </div>
   );
 }
