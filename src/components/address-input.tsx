@@ -39,7 +39,7 @@ export default function AddressInput({
           bounds: koreaBounds,
           fields: ["formatted_address", "geometry"],
           componentRestrictions: {
-            country: ["ko"],
+            country: ["kr"],
           },
         }
       );
