@@ -54,6 +54,7 @@ export default function LocationDialog({ id = null, open, setOpen }: Props) {
     setSubmit(true);
 
     const data = new FormData();
+    console.log(spotStore.data);
 
     data.set("data", JSON.stringify(spotStore.data));
 
