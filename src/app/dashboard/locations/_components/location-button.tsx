@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
-import LocationDialog from "./location.dialog";
+import LocationDialog from "./location-dialog";
 
 export default function LocationButton() {
   const [open, setOpen] = useState(false);
