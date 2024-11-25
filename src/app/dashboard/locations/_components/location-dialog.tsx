@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import LocationSpot from "./location-spot";
 import NumberSpot from "./number-spot";
+import PriceSpot from "./price-spot";
+import TotalSpot from "./total-spot";
 
 const totalSteps = 4;
 
@@ -97,9 +99,21 @@ export default function LocationDialog({ id = null, open, setOpen }: Props) {
                 1: <LocationSpot onNext={handleNextChange}></LocationSpot>,
                 2: (
                   <NumberSpot
+                    onPrev={handlePrevChange}
+                    onNext={handleNextChange}
+                  ></NumberSpot>
+                ),
+                3: (
+                  <PriceSpot
+                    onPrev={handlePrevChange}
+                    onNext={handleNextChange}
+                  ></PriceSpot>
+                ),
+                4: (
+                  <TotalSpot
                     onNext={handleNextChange}
                     onPrev={handlePrevChange}
-                  ></NumberSpot>
+                  ></TotalSpot>
                 ),
               }[step]
             }

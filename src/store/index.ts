@@ -6,7 +6,7 @@ export type SpotType = {
   gpscoords?: LatLng;
   numofspots?: number;
   price?: {
-    hour: number;
+    hourly: number;
   };
 };
 
@@ -25,7 +25,7 @@ export const useSpotStore = create<SpotState>((set) => ({
     },
     numofspots: 1,
     price: {
-      hour: 0,
+      hourly: 0,
     },
   },
 
@@ -44,7 +44,7 @@ export const useSpotStore = create<SpotState>((set) => ({
         },
         numofspots: 1,
         price: {
-          hour: 0,
+          hourly: 0,
         },
       },
     }),

@@ -1,3 +1,5 @@
+// dashboard/locations/tile 첫번째 다이얼로그
+
 import AddressInput from "@/components/address-input";
 import { Button } from "@/components/ui/button";
 import { useSpotStore } from "@/store";
@@ -38,7 +40,7 @@ export default function LocationSpot({ onNext }: spotPropsType) {
       <p className="text-red-500 text-sm">{message}</p>
 
       <div className="flex justify-end py-4">
-        <Button type="button" onClick={onSubmit} variant="ghost">
+        <Button type="submit" onClick={onSubmit} variant="ghost">
           다음 &gt;
         </Button>
       </div>

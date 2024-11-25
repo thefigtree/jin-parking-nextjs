@@ -7,3 +7,18 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const libs: Library[] = ["core", "maps", "places", "marker"];
+
+export function formatAmountForDisplay(
+  amount: number,
+  currency: string
+): string {
+  let numFormat = new Intl.NumberFormat("ko-KR", {
+    style: "currency",
+    currency: "KRW",
+    currencyDisplay: "symbol",
+  });
+
+  const formatedAmount = numFormat.format(amount);
+
+  return formatedAmount === "NaN" ? "" : formatedAmount;
+}

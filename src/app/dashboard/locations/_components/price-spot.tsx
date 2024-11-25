@@ -1,4 +1,4 @@
-// dashboard/locations/tile 두번째 다이얼로그
+// dashboard/locations/tile 세번째 다이얼로그
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const FormSchema = z.object({
-  numofspots: z.coerce
+  hourly: z.coerce
     .number({ invalid_type_error: "숫자만 입력이 가능합니다." })
     .positive({
       message: "1 이상의 숫자여야 합니다.",
@@ -24,21 +24,21 @@ const FormSchema = z.object({
     .finite({ message: "유효한 숫자여야 합니다." }),
 });
 
-type NumOfSpotInput = z.infer<typeof FormSchema>;
+type PriceInput = z.infer<typeof FormSchema>;
 
-export default function NumberSpot({ onNext, onPrev }: spotPropsType) {
+export default function PriceSpot({ onNext, onPrev }: spotPropsType) {
   const spotStore = useSpotStore();
 
-  const form = useForm<NumOfSpotInput>({
+  const form = useForm<PriceInput>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      numofspots: spotStore.data.numofspots,
+      hourly: spotStore.data.price?.hourly,
     },
   });
 
-  const onSubmit = (data: NumOfSpotInput) => {
+  const onSubmit = (data: PriceInput) => {
     spotStore.updateState({
-      numofspots: data.numofspots,
+      price: { ...data },
     });
 
     onNext();
@@ -46,19 +46,19 @@ export default function NumberSpot({ onNext, onPrev }: spotPropsType) {
 
   return (
     <div className="grid w-full gap-1">
-      <h2 className="text-xl sm:text-2xl py-4 font-semibold">주차 공간 수</h2>
+      <h2 className="text-xl sm:text-2xl py-4 font-semibold">가격</h2>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
-            name="numofspots"
+            name="hourly"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="원하는 주차공간 수를 입력하세요."
+                    placeholder="원하는 가격을 입력하세요."
                   ></Input>
                 </FormControl>
                 <FormMessage></FormMessage>
@@ -70,7 +70,7 @@ export default function NumberSpot({ onNext, onPrev }: spotPropsType) {
             <Button type="button" onClick={onPrev} variant="ghost">
               &lt; 이전
             </Button>
-            <Button type="submit" onClick={onNext} variant="ghost">
+            <Button type="submit" variant="ghost">
               다음 &gt;
             </Button>
           </div>
