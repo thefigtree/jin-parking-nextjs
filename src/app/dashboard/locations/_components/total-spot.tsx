@@ -6,7 +6,7 @@ import { formatAmountForDisplay } from "@/lib/utils";
 import { useSpotStore } from "@/store";
 import { spotPropsType } from "@/types/spot";
 
-export default function TotalSpot({ onNext, onPrev }: spotPropsType) {
+export default function TotalSpot({ onPrev }: spotPropsType) {
   const spotStore = useSpotStore();
 
   return (
