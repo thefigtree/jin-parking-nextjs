@@ -3,8 +3,8 @@
 import AddressInput from "@/components/address-input";
 import { Button } from "@/components/ui/button";
 import { useSpotStore } from "@/store";
-import { LatLng } from "@/types/address";
-import { spotPropsType } from "@/types/spot";
+import { LatLng } from "@/types/location";
+import { spotPropsType } from "@/types/step";
 
 import { useState } from "react";
 

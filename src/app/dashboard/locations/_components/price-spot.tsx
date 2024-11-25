@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useSpotStore } from "@/store";
-import { spotPropsType } from "@/types/spot";
+import { spotPropsType } from "@/types/step";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

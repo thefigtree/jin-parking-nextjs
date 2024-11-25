@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { formatAmountForDisplay } from "@/lib/utils";
 
 import { useSpotStore } from "@/store";
-import { spotPropsType } from "@/types/spot";
+import { spotPropsType } from "@/types/step";
 
 export default function TotalSpot({ onPrev }: spotPropsType) {
   const spotStore = useSpotStore();

@@ -1,4 +1,4 @@
-import { LatLng } from "@/types/address";
+import { LatLng } from "@/types/location";
 import { create } from "zustand";
 
 export type SpotType = {

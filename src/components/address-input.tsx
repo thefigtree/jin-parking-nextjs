@@ -1,6 +1,6 @@
 "use client";
 
-import { LatLng } from "@/types/address";
+import { LatLng } from "@/types/location";
 import { useEffect, useRef, useState } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { libs } from "@/lib/utils";
