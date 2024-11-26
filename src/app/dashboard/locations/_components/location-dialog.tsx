@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -113,6 +114,9 @@ export default function LocationDialog({ id = null, open, setOpen }: Props) {
       <DialogContent onInteractOutside={handleOnInteracOutside}>
         <DialogHeader>
           <DialogTitle>내 장소 보기</DialogTitle>
+          <DialogDescription>
+            끝까지 입력해야 등록이 가능합니다.
+          </DialogDescription>
           <div className="space-y-8">
             <Progress value={step * stepIncrement}></Progress>
             {

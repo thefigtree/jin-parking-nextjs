@@ -36,12 +36,13 @@ export default function NumberSpot({ onNext, onPrev }: spotPropsType) {
     },
   });
 
-  const onSubmit = (data: NumOfSpotInput) => {
+  const onSubmit = (data: NumOfSpotInput, e: any) => {
     spotStore.updateState({
       numofspots: data.numofspots,
     });
 
     onNext();
+    e.preventDefault();
   };
 
   return (
