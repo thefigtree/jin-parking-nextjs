@@ -1,6 +1,7 @@
 "use client";
 
 import { locationDelete } from "@/actions/action";
+import ConfirmDialog from "@/components/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -39,6 +40,13 @@ export default function LocationDelete({ props }: { props: string }) {
           <Trash2Icon color="red"></Trash2Icon>
         </Button>
       )}
+
+      <ConfirmDialog
+        message="주차 장소 정보를 정말 삭제하시겠습니까?"
+        open={open}
+        onClose={() => setOpen(false)}
+        onConfirm={handleConfirm}
+      ></ConfirmDialog>
     </>
   );
 }

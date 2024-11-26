@@ -9,6 +9,8 @@ import {
 import LocationToggle from "./location-toggle";
 import { formatAmountForDisplay } from "@/lib/utils";
 import LocationDelete from "./location-delete";
+import Link from "next/link";
+import { PencilIcon } from "lucide-react";
 
 type Props = {
   id: string;
@@ -72,6 +74,10 @@ const LocationCard: React.FC<Props> = ({
 
       <CardFooter>
         <LocationDelete props={JSON.stringify({ id: id })}></LocationDelete>
+
+        <Link href={`./edit/${id}`}>
+          <PencilIcon color="black"></PencilIcon>
+        </Link>
       </CardFooter>
     </Card>
   );
