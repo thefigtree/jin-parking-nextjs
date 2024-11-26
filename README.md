@@ -8,7 +8,8 @@
 
 ## 개발 환경
 
-- Front: NextJS, Typescript, Tailwind CSS, Shadcn/ui, Zod, React-hook-form, Zustand
+- Front: NextJS, Typescript, Tailwind CSS, Shadcn/ui, Zod, React-hook-form
+- State Management: Zustand
 - Api: Google Maps Api
 
 <br>
