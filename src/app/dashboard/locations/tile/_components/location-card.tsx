@@ -4,6 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import LocationToggle from "./location-toggle";
 
 type Props = {
   id: string;
@@ -31,7 +32,15 @@ const LocationCard: React.FC<Props> = ({
   return (
     <Card className="w-full lg:w=[350px]">
       <CardHeader>
-        <CardTitle>switch</CardTitle>
+        <CardTitle>
+          <LocationToggle
+            props={JSON.stringify({
+              id: id,
+              name: name,
+              status: status,
+            })}
+          ></LocationToggle>
+        </CardTitle>
 
         <CardDescription className="text-md">{address}</CardDescription>
       </CardHeader>
