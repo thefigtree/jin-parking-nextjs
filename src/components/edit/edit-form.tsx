@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const FormSchema = z.object({
-  numberofspots: z.coerce
+  numOfSpots: z.coerce
     .number({ invalid_type_error: "숫자만 입력이 가능합니다." })
     .positive({
       message: "1 이상의 숫자여야 합니다.",
@@ -37,7 +37,7 @@ export default function EditForm({ location }: { location: string }) {
   const form = useForm<FormInput>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      numberofspots: parsedLocation.numberofspots,
+      numOfSpots: parsedLocation.numOfSpots,
       hourly: parsedLocation.price.hourly,
     },
   });
@@ -67,7 +67,7 @@ export default function EditForm({ location }: { location: string }) {
 
           <FormField
             control={form.control}
-            name="numberofspots"
+            name="numOfSpots"
             render={({ field }) => (
               <FormItem>
                 <FormControl>

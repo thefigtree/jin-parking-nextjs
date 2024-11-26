@@ -21,7 +21,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
           LocationParking.gpscoords.lat,
         ],
       },
-      numberofspots: LocationParking.numberofspots,
+      numOfSpots: LocationParking.numOfSpots,
       price: LocationParking.price,
       status: LocationParking.status,
     });

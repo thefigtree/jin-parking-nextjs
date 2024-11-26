@@ -5,7 +5,7 @@ import { Document, Schema, model, models } from "mongoose";
 export interface LocationParking extends Document {
   address: string;
   gpscoords: LatLng;
-  numberofspots: number;
+  numOfSpots: number;
   price: Price;
   status: string;
   bookedspots?: number;
@@ -26,7 +26,7 @@ const LocationParkingSchema = new Schema<LocationParking>(
       lat: Number,
       lng: Number,
     },
-    numberofspots: Number,
+    numOfSpots: Number,
     price: {
       hourly: Number,
     },

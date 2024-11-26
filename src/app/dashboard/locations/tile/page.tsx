@@ -23,7 +23,7 @@ export default async function LocationTilePage() {
           id={location.id}
           name={getStreetFromAddress(location.address)}
           address={location.address}
-          numberOfSpots={location.numberofspots}
+          numOfSpots={location.numOfSpots}
           spotsAvailable={4}
           spotsBooked={6}
           status={location.status}
