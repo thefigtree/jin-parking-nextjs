@@ -32,3 +32,19 @@ export async function toggleLocation({
     }
   }
 }
+
+export async function locationDelete({
+  id,
+  path,
+}: {
+  id: string;
+  path: string;
+}) {
+  await connectToDB();
+
+  const deleteResult = await LocationParkingModel.findByIdAndDelete(id);
+
+  if (deleteResult) {
+    revalidatePath(path);
+  }
+}
