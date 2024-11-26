@@ -22,3 +22,7 @@ export function formatAmountForDisplay(
 
   return formatedAmount === "NaN" ? "" : formatedAmount;
 }
+
+export function getStreetFromAddress(address: string) {
+  return address.split(",")[0];
+}
