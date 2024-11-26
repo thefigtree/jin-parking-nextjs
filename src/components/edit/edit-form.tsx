@@ -47,11 +47,14 @@ export default function EditForm({ location }: { location: string }) {
   };
 
   return (
-    <div className="sm:container sm:w-1/2 flex flex-col bg-white pt-10 pb-10 p-4 rounded gap-y-4 items-center">
+    <div className="sm:container sm:w-1/2 flex flex-col bg-white pt-10 pb-10 p-4 rounded gap-y-4 items-center mt-2">
       <p>{parsedLocation.address}</p>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="container flex flex-col gap-y-2"
+        >
           <FormField
             control={form.control}
             name="hourly"
@@ -80,7 +83,11 @@ export default function EditForm({ location }: { location: string }) {
 
           <div className="flex flex-col mt-4">
             <Button type="submit">저장하기</Button>
-            <Button type="button" variant="ghost">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => window.history.back()}
+            >
               뒤로가기
             </Button>
           </div>
