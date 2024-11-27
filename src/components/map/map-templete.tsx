@@ -2,9 +2,12 @@
 
 import {
   buildMapInfoCardContent,
+  buildMapInfoCardContentForDestination,
+  destinationPin,
   getStreetFromAddress,
   libs,
   parkingPin,
+  parkingPinWithIndex,
 } from "@/lib/utils";
 import { MapAddressType } from "@/types/enum";
 import { MapParams } from "@/types/location";
@@ -17,7 +20,7 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
   let infoWindow: google.maps.InfoWindow;
 
   const { isLoaded } = useJsApiLoader({
-    nonce: "477d4456-f7b5-45e2-8945-5f17b3964752",
+    nonce: "asdaskjdnkasjnddsnf",
     googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
     libraries: libs,
   });
@@ -64,6 +67,20 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
       });
 
       if (location.type === MapAddressType.PARKINGLOCATION) {
+        marker.setAttribute(
+          "content",
+          buildMapInfoCardContent(
+            getStreetFromAddress(location.address),
+            location.address,
+            location.numberofspots as number,
+            location.price?.hourly as number
+          )
+        );
+
+        marker.content = parkingPinWithIndex(
+          getPinType(location),
+          index
+        ).element;
       } else if (location.type === MapAddressType.ADMIN) {
         marker.setAttribute(
           "content",
@@ -77,7 +94,40 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
 
         marker.content = parkingPin(getPinType(location)).element;
       } else {
+        const cityCircle = new google.maps.Circle({
+          strokeColor: "#00FF00",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#0FF",
+          fillOpacity: 0.35,
+          map,
+          center: {
+            lat: params[0].gpscoords.lat,
+            lng: params[0].gpscoords.lng,
+          },
+          radius: location.radius,
+        });
+
+        marker.content = destinationPin(getPinType(location)).element;
+        marker.setAttribute(
+          "content",
+          buildMapInfoCardContentForDestination(
+            getStreetFromAddress(location.address),
+            location.address
+          )
+        );
       }
+
+      //   마커 클릭 이벤트 함수
+
+      marker.addListener("click", () => {
+        infoWindow.close();
+        infoWindow.setContent(marker.getAttribute("content"));
+        infoWindow.open({
+          map,
+          anchor: marker,
+        });
+      });
     });
   }
 

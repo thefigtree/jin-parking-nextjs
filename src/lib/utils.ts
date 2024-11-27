@@ -41,12 +41,26 @@ export const buildMapInfoCardContent = (
     <div class="map_infocard_body">
     <div>${address}</div>
     <hr />
-    <div>Total spots: ${totalSpots}</div>
-    <div>Hourly price: ${formatAmountForDisplay(price, "CAD")}</div>
+    <div>주차 공간 수: ${totalSpots}</div>
+    <div>시간 당: ${formatAmountForDisplay(price, "WON")}</div>
     </div>
     
 </div>
 `;
+};
+
+export const buildMapInfoCardContentForDestination = (
+  title: string,
+  address: string
+): string => {
+  return `
+  <div class="map_infocard_content">
+      <div class="map_infocard_title">${title}</div>
+      <div class="map_infocard_body">
+      <div>${address}</div>
+      </div>
+      
+  </div>`;
 };
 
 export const parkingPin = (type: string) => {
@@ -56,6 +70,31 @@ export const parkingPin = (type: string) => {
       <img src='http://localhost:3000/${type}.png' />
     </div>`;
 
+  const pinElement = new google.maps.marker.PinElement({
+    glyph: glyphImg,
+  });
+
+  return pinElement;
+};
+
+export const parkingPinWithIndex = (type: string, index: number) => {
+  const glyphImg = document.createElement("div");
+
+  glyphImg.innerHTML = `  <div class="map_pin_container">
+  <div class"map_pin_id><span>${index}</span></div>
+      <img src='http://localhost:3000/${type}.png' />
+    </div>`;
+
+  const pinElement = new google.maps.marker.PinElement({
+    glyph: glyphImg,
+  });
+
+  return pinElement;
+};
+
+export const destinationPin = (type: string) => {
+  const glyphImg = document.createElement("img");
+  glyphImg.src = `http://localhost:3000/${type}.png`;
   const pinElement = new google.maps.marker.PinElement({
     glyph: glyphImg,
   });
