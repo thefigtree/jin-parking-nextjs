@@ -1,6 +1,12 @@
 "use client";
 
-import { libs } from "@/lib/utils";
+import {
+  buildMapInfoCardContent,
+  getStreetFromAddress,
+  libs,
+  parkingPin,
+} from "@/lib/utils";
+import { MapAddressType } from "@/types/enum";
 import { MapParams } from "@/types/location";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useRef } from "react";
@@ -17,6 +23,12 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
   });
 
   const mapRef = useRef<HTMLDivElement>(null);
+
+  const getPinType = (location: MapParams): string => {
+    return location.type === MapAddressType.DESTINATION
+      ? "parking_destination_tr"
+      : "parking_pin_tr";
+  };
 
   useEffect(() => {
     if (isLoaded) {
@@ -50,6 +62,22 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
         position: location.gpscoords,
         title: location.address,
       });
+
+      if (location.type === MapAddressType.PARKINGLOCATION) {
+      } else if (location.type === MapAddressType.ADMIN) {
+        marker.setAttribute(
+          "content",
+          buildMapInfoCardContent(
+            getStreetFromAddress(location.address),
+            location.address,
+            location.numberofspots as number,
+            location.price?.hourly as number
+          )
+        );
+
+        marker.content = parkingPin(getPinType(location)).element;
+      } else {
+      }
     });
   }
 
