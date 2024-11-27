@@ -6,3 +6,11 @@ export type LatLng = {
 export type Price = {
   hourly: number;
 };
+
+export type UpdateLocationParams = {
+  address: string;
+  numOfSpots: number;
+  price: {
+    hourly: number;
+  };
+};

@@ -16,7 +16,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       address: LocationParking.address,
       gpscoords: LocationParking.gpscoords,
       location: {
-        coordinate: [
+        coordinates: [
           LocationParking.gpscoords.lng,
           LocationParking.gpscoords.lat,
         ],

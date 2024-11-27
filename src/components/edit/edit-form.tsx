@@ -13,6 +13,10 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { locationUpdate } from "@/actions/action";
+import { usePathname } from "next/navigation";
+import { Loader } from "lucide-react";
 
 const FormSchema = z.object({
   numOfSpots: z.coerce
@@ -32,6 +36,10 @@ const FormSchema = z.object({
 type FormInput = z.infer<typeof FormSchema>;
 
 export default function EditForm({ location }: { location: string }) {
+  const [progress, setProgress] = useState(false);
+
+  const pathname = usePathname();
+
   const parsedLocation = JSON.parse(location) as LocationParking;
 
   const form = useForm<FormInput>({
@@ -43,7 +51,21 @@ export default function EditForm({ location }: { location: string }) {
   });
 
   const onSubmit = async (data: FormInput) => {
-    console.log(data);
+    setProgress(true);
+
+    await locationUpdate({
+      id: parsedLocation._id as string,
+      path: pathname,
+      location: {
+        address: parsedLocation.address,
+        numOfSpots: data.numOfSpots,
+        price: {
+          hourly: data.hourly,
+        },
+      },
+    });
+
+    setProgress(false);
   };
 
   return (
@@ -82,14 +104,20 @@ export default function EditForm({ location }: { location: string }) {
           ></FormField>
 
           <div className="flex flex-col mt-4">
-            <Button type="submit">저장하기</Button>
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={() => window.history.back()}
-            >
-              뒤로가기
-            </Button>
+            {progress ? (
+              <Loader></Loader>
+            ) : (
+              <>
+                <Button type="submit">저장하기</Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => window.history.back()}
+                >
+                  뒤로가기
+                </Button>
+              </>
+            )}
           </div>
         </form>
       </Form>

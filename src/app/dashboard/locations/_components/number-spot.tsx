@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const FormSchema = z.object({
-  numofspots: z.coerce
+  numOfSpots: z.coerce
     .number({ invalid_type_error: "숫자만 입력이 가능합니다." })
     .positive({
       message: "1 이상의 숫자여야 합니다.",
@@ -32,17 +32,16 @@ export default function NumberSpot({ onNext, onPrev }: spotPropsType) {
   const form = useForm<NumOfSpotInput>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      numofspots: spotStore.data.numofspots,
+      numOfSpots: spotStore.data.numOfSpots,
     },
   });
 
-  const onSubmit = (data: NumOfSpotInput, e: any) => {
+  const onSubmit = (data: NumOfSpotInput) => {
     spotStore.updateState({
-      numofspots: data.numofspots,
+      numOfSpots: data.numOfSpots,
     });
 
     onNext();
-    e.preventDefault();
   };
 
   return (
@@ -53,7 +52,7 @@ export default function NumberSpot({ onNext, onPrev }: spotPropsType) {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
-            name="numofspots"
+            name="numOfSpots"
             render={({ field }) => (
               <FormItem>
                 <FormControl>

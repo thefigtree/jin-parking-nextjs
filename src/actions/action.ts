@@ -6,6 +6,7 @@ import {
 } from "@/schemas/location-parking";
 import { connectToDB } from "@/service/db";
 import { LocationParkingStatus } from "@/types/enum";
+import { UpdateLocationParams } from "@/types/location";
 import { revalidatePath } from "next/cache";
 
 export async function toggleLocation({
@@ -33,6 +34,8 @@ export async function toggleLocation({
   }
 }
 
+// Location Api 삭제 핸들러
+
 export async function locationDelete({
   id,
   path,
@@ -46,5 +49,36 @@ export async function locationDelete({
 
   if (deleteResult) {
     revalidatePath(path);
+  }
+}
+
+// Location Api 업데이트 핸들러
+
+export async function locationUpdate({
+  id,
+  path,
+  location,
+}: {
+  id: string;
+  path: string;
+  location: UpdateLocationParams;
+}) {
+  try {
+    await connectToDB();
+
+    await LocationParkingModel.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $set: location,
+      }
+    );
+
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+
+    throw error;
   }
 }

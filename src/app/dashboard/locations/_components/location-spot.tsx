@@ -40,7 +40,7 @@ export default function LocationSpot({ onNext }: spotPropsType) {
       <p className="text-red-500 text-sm">{message}</p>
 
       <div className="flex justify-end py-4">
-        <Button type="submit" onClick={onSubmit} variant="ghost">
+        <Button type="button" onClick={onSubmit} variant="ghost">
           다음 &gt;
         </Button>
       </div>
