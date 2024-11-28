@@ -9,3 +9,9 @@ export enum MapAddressType {
   DESTINATION = "DESTINATION",
   ADMIN = "ADMIN",
 }
+
+export enum BookingStatus {
+  CANCEL = "CANCEL",
+  BOOKED = "BOOKED",
+  PENDING = "PENDING_PAYMENT",
+}

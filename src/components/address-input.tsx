@@ -1,3 +1,5 @@
+// input에 주소 오토 검색 기능
+
 "use client";
 
 import { LatLng } from "@/types/location";

@@ -8,15 +8,19 @@ import { Button } from "./ui/button";
 import DateSelect from "./date/date.select";
 import TimeSelect from "./time/time-select";
 import { useEffect } from "react";
+import { LatLng } from "@/types/location";
+import AddressInput from "./address-input";
+import { format } from "date-fns";
 
 const FormSchema = z.object({
-  arrivingon: z.string({
+  address: z.string(),
+  arrivingon: z.date({
     required_error: "날짜는 필수입니다.",
   }),
-  //   gpscoords: z.object({
-  //     lat: z.number(),
-  //     lng: z.number(),
-  //   }),
+  gpscoords: z.object({
+    lat: z.number(),
+    lng: z.number(),
+  }),
   arrivingtime: z.string({
     required_error: "시간은 필수입니다.",
   }),
@@ -25,12 +29,14 @@ const FormSchema = z.object({
   }),
 });
 
-export default function SearchForm() {
+export default function SearchForm({
+  onSearch,
+}: {
+  onSearch: (data: any) => void;
+}) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      arrivingon: "",
-      arrivingtime: "",
       leavingtime: "",
     },
   });
@@ -47,14 +53,24 @@ export default function SearchForm() {
   }, [arrivingTime, form]);
 
   function onSubmit(formData: z.infer<typeof FormSchema>) {
-    console.log(formData);
+    const data = {
+      ...formData,
+      arrivingon: format(formData.arrivingon, "yyyy-MM-dd"),
+    };
+
+    onSearch(data);
   }
+
+  const handleAddressSelect = (address: string, gpscoords: LatLng) => {
+    form.setValue("address", address);
+    form.setValue("gpscoords", gpscoords);
+  };
 
   return (
     <div className="flex flex-col lg:flex-row">
       <div className="grid gap-y-1.5 lg:w-1/2">
         <Label htmlFor="parkingat">주소</Label>
-        <Input id="parkingat" placeholder="주소를 입력해주세요."></Input>
+        <AddressInput onSelect={handleAddressSelect} selected=""></AddressInput>
       </div>
 
       <Form {...form}>
