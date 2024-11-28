@@ -4,6 +4,8 @@ import { LatLng, MapParams } from "@/types/location";
 import SearchForm from "./search-form";
 import { useState } from "react";
 import { findNearbyLocations } from "@/actions/action";
+import { LocationParking } from "@/schemas/location-parking";
+import { MapAddressType } from "@/types/enum";
 
 export type SearchParams = {
   address: string;
@@ -24,13 +26,36 @@ export default function SearchBar() {
   const handleSearch = async (params: SearchParams) => {
     console.log(params);
 
-    setMessage("대여중...");
+    setMessage("불러 오는 중...");
 
     setSearch([]);
 
     const searchData = await findNearbyLocations(half, params as SearchParams);
 
-    console.log(searchData);
+    const mapParams: MapParams[] = searchData.map((loc: LocationParking) => ({
+      gpscoords: loc.gpscoords,
+      price: loc.price,
+      numOfSpots: loc.numOfSpots,
+      bookedspots: loc.bookedspots,
+      status: loc.status,
+      type: MapAddressType.PARKINGLOCATION,
+      id: loc._id,
+    }));
+
+    if (mapParams.length > 0) {
+      mapParams.unshift({
+        address: params.address as string,
+        gpscoords: params.gpscoords as LatLng,
+        type: MapAddressType.DESTINATION,
+        half: half,
+        id: "",
+      });
+
+      setSearch({ ...mapParams });
+      setSearchParams(params);
+    } else {
+      setMessage("근처에 주차 가능한 공간이 없습니다.");
+    }
   };
 
   return (
