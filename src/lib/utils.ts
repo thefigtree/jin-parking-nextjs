@@ -121,7 +121,7 @@ export function getTime(startTime = "00:00", endTime = "23:45"): ReturnType[] {
     const ampm = currentTime.getHours() < 12 ? "AM" : "PM";
     const timeString = `${hours}:${minutes} ${ampm}`;
     timeArray.push({
-      time: `${hours}:${minutes} ${ampm}`,
+      time: `${hours}:${minutes}`,
       display: timeString,
     });
 

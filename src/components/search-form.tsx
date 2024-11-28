@@ -2,11 +2,12 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
 import DateSelect from "./date/date.select";
 import TimeSelect from "./time/time-select";
+import { useEffect } from "react";
 
 const FormSchema = z.object({
   arrivingon: z.string({
@@ -34,13 +35,24 @@ export default function SearchForm() {
     },
   });
 
+  const arrivingTime = useWatch({
+    control: form.control,
+    name: "arrivingtime",
+  });
+
+  useEffect(() => {
+    if (arrivingTime) {
+      form.resetField("leavingtime");
+    }
+  }, [arrivingTime, form]);
+
   function onSubmit(formData: z.infer<typeof FormSchema>) {
     console.log(formData);
   }
 
   return (
     <div className="flex flex-col lg:flex-row">
-      <div className="grid gap-y-2 lg:w-1/2">
+      <div className="grid gap-y-1.5 lg:w-1/2">
         <Label htmlFor="parkingat">주소</Label>
         <Input id="parkingat" placeholder="주소를 입력해주세요."></Input>
       </div>
@@ -50,6 +62,8 @@ export default function SearchForm() {
           className="gap-y-2 grid grid-cols-1 lg:grid-cols-4 gap-x-32 items-end"
           onSubmit={form.handleSubmit(onSubmit)}
         >
+          {/* 날짜 */}
+
           <FormField
             control={form.control}
             name="arrivingon"
@@ -62,6 +76,8 @@ export default function SearchForm() {
               </FormItem>
             )}
           ></FormField>
+
+          {/* 대여시간 */}
 
           <FormField
             control={form.control}
@@ -78,6 +94,8 @@ export default function SearchForm() {
               </FormItem>
             )}
           ></FormField>
+
+          {/* 반납시간 */}
 
           <FormField
             control={form.control}
