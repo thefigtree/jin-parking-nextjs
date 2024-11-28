@@ -20,7 +20,7 @@ export default async function LocationMapPage() {
       address: location.address,
       gpscoords: location.gpscoords,
       price: location.price,
-      numberofspots: location.numOfSpots,
+      numOfSpots: location.numOfSpots,
       status: location.status,
       type: MapAddressType.ADMIN,
       id: location.id,

@@ -19,7 +19,7 @@ export type MapParams = {
   id: string;
   gpscoords: LatLng;
   address: string;
-  numberofspots?: number;
+  numOfSpots?: number;
   bookedspots?: number;
   price?: Price;
   type?: string;

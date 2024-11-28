@@ -72,7 +72,7 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
           buildMapInfoCardContent(
             getStreetFromAddress(location.address),
             location.address,
-            location.numberofspots as number,
+            location.numOfSpots as number,
             location.price?.hourly as number
           )
         );
@@ -87,7 +87,7 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
           buildMapInfoCardContent(
             getStreetFromAddress(location.address),
             location.address,
-            location.numberofspots as number,
+            location.numOfSpots as number,
             location.price?.hourly as number
           )
         );
