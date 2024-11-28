@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
 import DateSelect from "./date/date.select";
+import TimeSelect from "./time/time-select";
 
 const FormSchema = z.object({
   arrivingon: z.string({
@@ -69,7 +70,10 @@ export default function SearchForm() {
               <FormItem className="lg:w-[250px] grid">
                 <FormLabel>대여 시간</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="시간을 입력해주세요."></Input>
+                  <TimeSelect
+                    onChange={field.onChange}
+                    defaultValue={field.value}
+                  ></TimeSelect>
                 </FormControl>
               </FormItem>
             )}
@@ -82,13 +86,17 @@ export default function SearchForm() {
               <FormItem className="lg:w-[250px] grid">
                 <FormLabel>반납 시간</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="시간을 입력해주세요."></Input>
+                  <TimeSelect
+                    disableTime={form.getValues("arrivingtime")}
+                    onChange={field.onChange}
+                    defaultValue={field.value}
+                  ></TimeSelect>
                 </FormControl>
               </FormItem>
             )}
           ></FormField>
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit">대여하기</Button>
         </form>
       </Form>
     </div>
