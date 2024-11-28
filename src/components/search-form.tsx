@@ -5,6 +5,7 @@ import { Label } from "./ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
+import DateSelect from "./date/date.select";
 
 const FormSchema = z.object({
   arrivingon: z.string({
@@ -55,7 +56,7 @@ export default function SearchForm() {
               <FormItem className="lg:w-[250px] grid">
                 <FormLabel>날짜</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="날짜를 입력해주세요."></Input>
+                  <DateSelect field={field} disableDates={true}></DateSelect>
                 </FormControl>
               </FormItem>
             )}
