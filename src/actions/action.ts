@@ -6,6 +6,10 @@ import {
   LocationParking,
   LocationParkingModel,
 } from "@/schemas/location-parking";
+// import {
+//   LocationParking,
+//   LocationParkingModel,
+// } from "@/schemas/location-parking";
 import { connectToDB } from "@/service/db";
 import { BookingStatus, LocationParkingStatus } from "@/types/enum";
 import { UpdateLocationParams } from "@/types/location";
@@ -87,56 +91,123 @@ export async function locationUpdate({
 
 // 데이터 근처 지역 핸들러
 
+// export async function findNearbyLocations(
+//   max: number,
+//   searchParams: SearchParams
+// ) {
+//   try {
+//     await connectToDB();
+
+//     const start = new Date(
+//       `${searchParams.arrivingon}T${searchParams.arrivingtime}`
+//     );
+//     const end = new Date(
+//       `${searchParams.arrivingon}T${searchParams.leavingtime}`
+//     );
+
+//     // const locationParking: LocationParking[] = await LocationParkingModel.find({
+//     //   location: {
+//     //     $nearSphere: {
+//     //       $geometry: {
+//     //         type: "Point",
+//     //         coordinates: [
+//     //           searchParams.gpscoords.lng,
+//     //           searchParams.gpscoords.lat,
+//     //         ],
+//     //       },
+//     //       $maxDistance: max, // meters
+//     //     },
+//     //   },
+//     // }).lean();
+
+//     const locationParking: LocationParking[] = await LocationParkingModel
+
+//     const availableLocations = await Promise.all(
+//       locationParking.map(async (location: LocationParking) => {
+//         const bookings = await BookingModel.find({
+//           locationid: location._id,
+//           status: BookingStatus.BOOKED,
+//           starttime: {
+//             $lt: end,
+//           },
+//           endtime: {
+//             $gt: start,
+//           },
+//         }).lean();
+
+//         if (bookings.length < location.numOfSpots) {
+//           return { ...location, ...{ bookedspots: bookings.length } };
+//         } else {
+//           return {
+//             ...location,
+//             ...{ bookedspots: bookings.length, status: LocationParkingStatus },
+//           };
+//         }
+//       })
+//     );
+
+//     return JSON.parse(JSON.stringify(availableLocations));
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// }
+
 export async function findNearbyLocations(
-  max: number,
+  maxDistance: number,
   searchParams: SearchParams
 ) {
   try {
     await connectToDB();
 
-    const start = new Date(
+    const st = new Date(
       `${searchParams.arrivingon}T${searchParams.arrivingtime}`
     );
-    const end = new Date(
+    const et = new Date(
       `${searchParams.arrivingon}T${searchParams.leavingtime}`
     );
 
-    const locationParking: LocationParking[] = await LocationParkingModel.find({
-      location: {
-        $nearSphere: {
-          $geometry: {
-            type: "Point",
-            coordinates: [
-              searchParams.gpscoords.lng,
-              searchParams.gpscoords.lat,
-            ],
+    const parkingLocations: LocationParking[] = await LocationParkingModel.find(
+      {
+        location: {
+          $nearSphere: {
+            $geometry: {
+              type: "Point",
+              coordinates: [
+                searchParams.gpscoords.lng,
+                searchParams.gpscoords.lat,
+              ],
+            },
+            $maxDistance: maxDistance + 10000, // meters
           },
-          $maxDistance: max, // meters
         },
-      },
-    }).lean();
+      }
+    ).lean();
 
+    // go through all locations and find the bookings for it
     const availableLocations = await Promise.all(
-      locationParking.map(async (location: LocationParking) => {
+      parkingLocations.map(async (location: LocationParking) => {
         const bookings = await BookingModel.find({
           locationid: location._id,
           status: BookingStatus.BOOKED,
           starttime: {
-            $lt: end,
+            $lt: et,
           },
           endtime: {
-            $gt: start,
+            $gt: st,
           },
         }).lean();
 
         if (bookings.length < location.numOfSpots) {
           return { ...location, ...{ bookedspots: bookings.length } };
-        } else {
+        } else
           return {
             ...location,
-            ...{ bookedspots: bookings.length, status: LocationParkingStatus },
+            ...{
+              bookedspots: bookings.length,
+              status: LocationParkingStatus.FULL,
+            },
           };
-        }
       })
     );
 

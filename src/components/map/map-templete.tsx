@@ -59,61 +59,58 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
       maxWidth: 200,
     });
 
-    params.map((location, index) => {
+    params.map((loc, index) => {
       const marker = new google.maps.marker.AdvancedMarkerElement({
         map: map,
-        position: location.gpscoords,
-        title: location.address,
+        position: loc.gpscoords,
+        title: loc.address,
       });
 
-      if (location.type === MapAddressType.PARKINGLOCATION) {
+      if (loc.type === MapAddressType.PARKINGLOCATION) {
         marker.setAttribute(
           "content",
           buildMapInfoCardContent(
-            getStreetFromAddress(location.address),
-            location.address,
-            location.numOfSpots as number,
-            location.price?.hourly as number
+            getStreetFromAddress(loc.address),
+            loc.address,
+            loc.numOfSpots as number,
+            loc.price?.hourly as number
           )
         );
 
-        marker.content = parkingPinWithIndex(
-          getPinType(location),
-          index
-        ).element;
-      } else if (location.type === MapAddressType.ADMIN) {
+        marker.content = parkingPinWithIndex(getPinType(loc), index).element;
+      } else if (loc.type === MapAddressType.ADMIN) {
         marker.setAttribute(
           "content",
           buildMapInfoCardContent(
-            getStreetFromAddress(location.address),
-            location.address,
-            location.numOfSpots as number,
-            location.price?.hourly as number
+            getStreetFromAddress(loc.address),
+            loc.address,
+            loc.numOfSpots as number,
+            loc.price?.hourly as number
           )
         );
 
-        marker.content = parkingPin(getPinType(location)).element;
+        marker.content = parkingPin(getPinType(loc)).element;
       } else {
         const cityCircle = new google.maps.Circle({
           strokeColor: "#00FF00",
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: "#0FF",
+          fillColor: "rgb(0, 255, 255)",
           fillOpacity: 0.35,
           map,
           center: {
             lat: params[0].gpscoords.lat,
             lng: params[0].gpscoords.lng,
           },
-          radius: location.radius,
+          radius: loc.radius,
         });
 
-        marker.content = destinationPin(getPinType(location)).element;
+        marker.content = destinationPin(getPinType(loc)).element;
         marker.setAttribute(
           "content",
           buildMapInfoCardContentForDestination(
-            getStreetFromAddress(location.address),
-            location.address
+            getStreetFromAddress(loc.address),
+            loc.address
           )
         );
       }

@@ -24,5 +24,5 @@ export type MapParams = {
   price?: Price;
   type?: string;
   status?: string;
-  half?: number;
+  radius?: number;
 };

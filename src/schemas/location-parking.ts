@@ -1,3 +1,4 @@
+// import { LatLng, ParkingLocationStatus, Price } from '@/types'
 import { LocationParkingStatus } from "@/types/enum";
 import { LatLng, Price } from "@/types/location";
 import { Document, Schema, model, models } from "mongoose";
@@ -41,4 +42,4 @@ const LocationParkingSchema = new Schema<LocationParking>(
 );
 
 export const LocationParkingModel =
-  models.LocationParking || model("LocationParking", LocationParkingSchema);
+  models.ParkingLocation || model("ParkingLocation", LocationParkingSchema);

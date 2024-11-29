@@ -6,6 +6,7 @@ import { useState } from "react";
 import { findNearbyLocations } from "@/actions/action";
 import { LocationParking } from "@/schemas/location-parking";
 import { MapAddressType } from "@/types/enum";
+import MapTemplete from "./map/map-templete";
 
 export type SearchParams = {
   address: string;
@@ -17,7 +18,7 @@ export type SearchParams = {
 
 export default function SearchBar() {
   const [search, setSearch] = useState<MapParams[]>([]);
-  const [half, setHalf] = useState(500);
+  const [searchRadius, setSearchRadius] = useState(500);
   const [message, setMessage] = useState(
     "주소, 날짜와 시간을 입력 후 대여하기 버튼을 눌러주세요."
   );
@@ -30,7 +31,10 @@ export default function SearchBar() {
 
     setSearch([]);
 
-    const searchData = await findNearbyLocations(half, params as SearchParams);
+    const searchData = await findNearbyLocations(
+      searchRadius,
+      params as SearchParams
+    );
 
     const mapParams: MapParams[] = searchData.map((loc: LocationParking) => ({
       gpscoords: loc.gpscoords,
@@ -47,7 +51,7 @@ export default function SearchBar() {
         address: params.address as string,
         gpscoords: params.gpscoords as LatLng,
         type: MapAddressType.DESTINATION,
-        half: half,
+        radius: searchRadius,
         id: "",
       });
 
@@ -62,7 +66,14 @@ export default function SearchBar() {
     <div className="flex flex-col -mt-16 w-full p-4 py-10 items-start gap-x-2 rounded-2xl bg-gray-100 ring-1 ring-inset ring-gray-900/5">
       <SearchForm onSearch={handleSearch}></SearchForm>
       {search.length > 0 ? (
-        <p>결과</p>
+        <div className="flex">
+          <div className="p-1 flex-none w-56 overflow-auto h-[600px]">
+            결과를 불러 왔습니다.
+          </div>
+          <div className="flex-1">
+            <MapTemplete mapParams={JSON.stringify(search)}></MapTemplete>
+          </div>
+        </div>
       ) : (
         <p className="text-center pt-12 pb-12 text-xl text-slate-400">
           {message}
