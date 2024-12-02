@@ -1,17 +1,12 @@
 "use server";
 
 import { SearchParams } from "@/components/search-bar";
-import { BookingModel } from "@/schemas/booking-parking";
 import {
   LocationParking,
   LocationParkingModel,
 } from "@/schemas/location-parking";
-// import {
-//   LocationParking,
-//   LocationParkingModel,
-// } from "@/schemas/location-parking";
 import { connectToDB } from "@/service/db";
-import { BookingStatus, LocationParkingStatus } from "@/types/enum";
+import { LocationParkingStatus } from "@/types/enum";
 import { UpdateLocationParams } from "@/types/location";
 import { revalidatePath } from "next/cache";
 
@@ -89,131 +84,9 @@ export async function locationUpdate({
   }
 }
 
-// 데이터 근처 지역 핸들러
-
-// export async function findNearbyLocations(
-//   max: number,
-//   searchParams: SearchParams
-// ) {
-//   try {
-//     await connectToDB();
-
-//     const start = new Date(
-//       `${searchParams.arrivingon}T${searchParams.arrivingtime}`
-//     );
-//     const end = new Date(
-//       `${searchParams.arrivingon}T${searchParams.leavingtime}`
-//     );
-
-//     // const locationParking: LocationParking[] = await LocationParkingModel.find({
-//     //   location: {
-//     //     $nearSphere: {
-//     //       $geometry: {
-//     //         type: "Point",
-//     //         coordinates: [
-//     //           searchParams.gpscoords.lng,
-//     //           searchParams.gpscoords.lat,
-//     //         ],
-//     //       },
-//     //       $maxDistance: max, // meters
-//     //     },
-//     //   },
-//     // }).lean();
-
-//     const locationParking: LocationParking[] = await LocationParkingModel
-
-//     const availableLocations = await Promise.all(
-//       locationParking.map(async (location: LocationParking) => {
-//         const bookings = await BookingModel.find({
-//           locationid: location._id,
-//           status: BookingStatus.BOOKED,
-//           starttime: {
-//             $lt: end,
-//           },
-//           endtime: {
-//             $gt: start,
-//           },
-//         }).lean();
-
-//         if (bookings.length < location.numOfSpots) {
-//           return { ...location, ...{ bookedspots: bookings.length } };
-//         } else {
-//           return {
-//             ...location,
-//             ...{ bookedspots: bookings.length, status: LocationParkingStatus },
-//           };
-//         }
-//       })
-//     );
-
-//     return JSON.parse(JSON.stringify(availableLocations));
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }
-
 export async function findNearbyLocations(
   maxDistance: number,
   searchParams: SearchParams
-) {
-  try {
-    await connectToDB();
+) {}
 
-    const st = new Date(
-      `${searchParams.arrivingon}T${searchParams.arrivingtime}`
-    );
-    const et = new Date(
-      `${searchParams.arrivingon}T${searchParams.leavingtime}`
-    );
-
-    const parkingLocations: LocationParking[] = await LocationParkingModel.find(
-      {
-        location: {
-          $nearSphere: {
-            $geometry: {
-              type: "Point",
-              coordinates: [
-                searchParams.gpscoords.lng,
-                searchParams.gpscoords.lat,
-              ],
-            },
-            $maxDistance: maxDistance + 10000, // meters
-          },
-        },
-      }
-    ).lean();
-
-    // go through all locations and find the bookings for it
-    const availableLocations = await Promise.all(
-      parkingLocations.map(async (location: LocationParking) => {
-        const bookings = await BookingModel.find({
-          locationid: location._id,
-          status: BookingStatus.BOOKED,
-          starttime: {
-            $lt: et,
-          },
-          endtime: {
-            $gt: st,
-          },
-        }).lean();
-
-        if (bookings.length < location.numOfSpots) {
-          return { ...location, ...{ bookedspots: bookings.length } };
-        } else
-          return {
-            ...location,
-            ...{
-              bookedspots: bookings.length,
-              status: LocationParkingStatus.FULL,
-            },
-          };
-      })
-    );
-
-    return JSON.parse(JSON.stringify(availableLocations));
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
+// 데이터 근처 지역 핸들러
