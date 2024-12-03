@@ -35,6 +35,32 @@ export default function SearchBar() {
       searchRadius,
       params as SearchParams
     );
+
+    const mapParams: MapParams[] = searchData.map((loc: LocationParking) => ({
+      address: loc.address,
+      gpscoords: loc.gpscoords,
+      price: loc.price,
+      numofspots: loc.numOfSpots,
+      bookedspots: loc.bookedspots,
+      status: loc.status,
+      type: MapAddressType.PARKINGLOCATION,
+      id: loc._id,
+    }));
+
+    if (mapParams.length > 0) {
+      mapParams.unshift({
+        address: params.address as string,
+        gpscoords: params.gpscoords as LatLng,
+        type: MapAddressType.DESTINATION,
+        radius: searchRadius,
+        id: "",
+      });
+
+      setSearch([...mapParams]);
+      setSearchParams(params);
+    } else {
+      setMessage("근처에 주차장이 없습니다.");
+    }
   };
 
   return (

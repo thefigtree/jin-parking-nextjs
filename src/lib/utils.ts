@@ -25,7 +25,7 @@ export function formatAmountForDisplay(
 }
 
 export function getStreetFromAddress(address: string) {
-  return address.split(",")[0];
+  return address?.split(",")[0];
 }
 
 // 구글맵

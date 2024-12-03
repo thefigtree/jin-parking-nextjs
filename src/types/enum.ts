@@ -11,7 +11,7 @@ export enum MapAddressType {
 }
 
 export enum BookingStatus {
-  CANCELED = "CANCELED",
+  CANCELLED = "CANCELLED",
   BOOKED = "BOOKED",
   PENDING = "PENDING_PAYMENT",
 }

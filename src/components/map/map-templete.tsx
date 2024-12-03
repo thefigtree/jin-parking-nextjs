@@ -56,7 +56,7 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
   //   구글맵 Api에 커스텀마커 함수
   function setMarker(map: google.maps.Map) {
     infoWindow = new google.maps.InfoWindow({
-      maxWidth: 200,
+      maxWidth: 500,
     });
 
     params.map((loc, index) => {
