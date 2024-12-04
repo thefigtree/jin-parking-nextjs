@@ -16,7 +16,7 @@ type Props = {
   id: string;
   name: string;
   address: string;
-  numOfSpots: number;
+  numberOfSpots: number;
   spotsBooked: number;
   spotsAvailable: number;
   status: string;
@@ -29,7 +29,7 @@ const LocationCard: React.FC<Props> = ({
   id,
   name,
   address,
-  numOfSpots,
+  numberOfSpots,
   spotsBooked,
   spotsAvailable,
   status,
@@ -57,7 +57,7 @@ const LocationCard: React.FC<Props> = ({
               시간 당: {formatAmountForDisplay(price.hourly, "WON")}
             </p>
             <p className="text-sm font-medium leading-none">
-              주차 공간 수: {numOfSpots}
+              주차 공간 수: {numberOfSpots}
             </p>
 
             <hr />

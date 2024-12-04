@@ -2,7 +2,7 @@
 
 import { toggleLocation } from "@/actions/action";
 import { Switch } from "@/components/ui/switch";
-import { LocationParkingStatus } from "@/types/enum";
+import { ParkingLocationStatus } from "@/types/enum";
 import { Loader } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { startTransition, useTransition } from "react";
@@ -16,11 +16,11 @@ type SwitchProps = {
 export default function LocationToggle({ props }: { props: string }) {
   const { id, name, status } = JSON.parse(props) as SwitchProps;
 
-  const [isPending, setIsPending] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const pathname = usePathname();
 
-  const active = status === LocationParkingStatus.AVAILABLE;
+  const active = status === ParkingLocationStatus.AVAILABLE;
 
   const handleToggle = () => {
     startTransition(async () => {

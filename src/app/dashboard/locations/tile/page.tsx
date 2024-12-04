@@ -1,6 +1,6 @@
 import {
-  LocationParking,
-  LocationParkingModel,
+  ParkingLocation,
+  ParkingLocationModel,
 } from "@/schemas/location-parking";
 import { connectToDB } from "@/service/db";
 import { getStreetFromAddress } from "@/lib/utils";
@@ -9,8 +9,8 @@ import LocationCard from "./_components/location-card";
 export default async function LocationTilePage() {
   await connectToDB();
 
-  const location: LocationParking[] = (await LocationParkingModel.find({})) as [
-    LocationParking
+  const location: ParkingLocation[] = (await ParkingLocationModel.find({})) as [
+    ParkingLocation
   ];
 
   console.log(location);
@@ -23,7 +23,7 @@ export default async function LocationTilePage() {
           id={location.id}
           name={getStreetFromAddress(location.address)}
           address={location.address}
-          numOfSpots={location.numOfSpots}
+          numberOfSpots={location.numberofspots}
           spotsAvailable={4}
           spotsBooked={6}
           status={location.status}

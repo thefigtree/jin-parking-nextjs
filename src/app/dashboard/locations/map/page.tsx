@@ -1,29 +1,29 @@
 import MapTemplete from "@/components/map/map-templete";
 import {
-  LocationParking,
-  LocationParkingModel,
+  ParkingLocation,
+  ParkingLocationModel,
 } from "@/schemas/location-parking";
 import { connectToDB } from "@/service/db";
-import { LocationParkingStatus, MapAddressType } from "@/types/enum";
+import { ParkingLocationStatus, MapAddressType } from "@/types/enum";
 import { MapParams } from "@/types/location";
 
 export default async function LocationMapPage() {
   await connectToDB();
 
-  const locationParking: LocationParking[] = await LocationParkingModel.find(
+  const parkingLocations: ParkingLocation[] = await ParkingLocationModel.find(
     {}
   );
 
-  const params: MapParams[] = locationParking
-    .filter((location) => location.status === LocationParkingStatus.AVAILABLE)
-    .map((location) => ({
-      address: location.address,
-      gpscoords: location.gpscoords,
-      price: location.price,
-      numOfSpots: location.numOfSpots,
-      status: location.status,
+  const params: MapParams[] = parkingLocations
+    .filter((loc) => loc.status === ParkingLocationStatus.AVAILABLE)
+    .map((loc) => ({
+      address: loc.address,
+      gpscoords: loc.gpscoords,
+      price: loc.price,
+      numberofspots: loc.numberofspots,
+      status: loc.status,
       type: MapAddressType.ADMIN,
-      id: location.id,
+      id: loc.id,
     }));
 
   console.log(params);

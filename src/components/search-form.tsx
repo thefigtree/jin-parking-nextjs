@@ -53,6 +53,8 @@ export default function SearchForm({
   }, [arrivingTime, form]);
 
   function onSubmit(formData: z.infer<typeof FormSchema>) {
+    console.log(formData);
+
     const data = {
       ...formData,
       arrivingon: format(formData.arrivingon, "yyyy-MM-dd"),

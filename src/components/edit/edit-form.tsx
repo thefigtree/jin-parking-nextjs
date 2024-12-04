@@ -1,6 +1,6 @@
 "use client";
 
-import { LocationParking } from "@/schemas/location-parking";
+import { ParkingLocation } from "@/schemas/location-parking";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -19,7 +19,7 @@ import { usePathname } from "next/navigation";
 import { Loader } from "lucide-react";
 
 const FormSchema = z.object({
-  numOfSpots: z.coerce
+  numberofspots: z.coerce
     .number({ invalid_type_error: "숫자만 입력이 가능합니다." })
     .positive({
       message: "1 이상의 숫자여야 합니다.",
@@ -40,12 +40,12 @@ export default function EditForm({ location }: { location: string }) {
 
   const pathname = usePathname();
 
-  const parsedLocation = JSON.parse(location) as LocationParking;
+  const parsedLocation = JSON.parse(location) as ParkingLocation;
 
   const form = useForm<FormInput>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      numOfSpots: parsedLocation.numOfSpots,
+      numberofspots: parsedLocation.numberofspots,
       hourly: parsedLocation.price.hourly,
     },
   });
@@ -58,7 +58,7 @@ export default function EditForm({ location }: { location: string }) {
       path: pathname,
       location: {
         address: parsedLocation.address,
-        numOfSpots: data.numOfSpots,
+        numberofspots: data.numberofspots,
         price: {
           hourly: data.hourly,
         },
@@ -92,7 +92,7 @@ export default function EditForm({ location }: { location: string }) {
 
           <FormField
             control={form.control}
-            name="numOfSpots"
+            name="numberofspots"
             render={({ field }) => (
               <FormItem>
                 <FormControl>

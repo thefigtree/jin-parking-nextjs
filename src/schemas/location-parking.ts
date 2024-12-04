@@ -1,12 +1,11 @@
-// import { LatLng, ParkingLocationStatus, Price } from '@/types'
-import { LocationParkingStatus } from "@/types/enum";
+import { ParkingLocationStatus } from "@/types/enum";
 import { LatLng, Price } from "@/types/location";
 import { Document, Schema, model, models } from "mongoose";
 
-export interface LocationParking extends Document {
+export interface ParkingLocation extends Document {
   address: string;
   gpscoords: LatLng;
-  numOfSpots: number;
+  numberofspots: number;
   price: Price;
   status: string;
   bookedspots?: number;
@@ -16,7 +15,7 @@ export interface LocationParking extends Document {
   };
 }
 
-const LocationParkingSchema = new Schema<LocationParking>(
+const ParkingLocationSchema = new Schema<ParkingLocation>(
   {
     address: String,
     location: {
@@ -27,13 +26,13 @@ const LocationParkingSchema = new Schema<LocationParking>(
       lat: Number,
       lng: Number,
     },
-    numOfSpots: Number,
+    numberofspots: Number,
     price: {
       hourly: Number,
     },
     status: {
       type: String,
-      default: LocationParkingStatus.AVAILABLE,
+      default: ParkingLocationStatus.AVAILABLE,
     },
   },
   {
@@ -41,5 +40,5 @@ const LocationParkingSchema = new Schema<LocationParking>(
   }
 );
 
-export const LocationParkingModel =
-  models.ParkingLocation || model("ParkingLocation", LocationParkingSchema);
+export const ParkingLocationModel =
+  models.ParkingLocation || model("ParkingLocation", ParkingLocationSchema);

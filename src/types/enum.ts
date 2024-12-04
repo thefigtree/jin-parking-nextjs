@@ -1,4 +1,4 @@
-export enum LocationParkingStatus {
+export enum ParkingLocationStatus {
   AVAILABLE = "AVAILABLE",
   FULL = "FULL",
   NOTAVAILABLE = "NOTAVAILABLE",

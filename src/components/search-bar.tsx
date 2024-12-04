@@ -4,7 +4,7 @@ import { LatLng, MapParams } from "@/types/location";
 import SearchForm from "./search-form";
 import { useState } from "react";
 import { findNearbyLocations } from "@/actions/action";
-import { LocationParking } from "@/schemas/location-parking";
+import { ParkingLocation } from "@/schemas/location-parking";
 import { MapAddressType } from "@/types/enum";
 import MapTemplete from "./map/map-templete";
 
@@ -36,11 +36,13 @@ export default function SearchBar() {
       params as SearchParams
     );
 
-    const mapParams: MapParams[] = searchData.map((loc: LocationParking) => ({
+    console.log(searchData);
+
+    const mapParams: MapParams[] = searchData.map((loc: ParkingLocation) => ({
       address: loc.address,
       gpscoords: loc.gpscoords,
       price: loc.price,
-      numofspots: loc.numOfSpots,
+      numberofspots: loc.numberofspots,
       bookedspots: loc.bookedspots,
       status: loc.status,
       type: MapAddressType.PARKINGLOCATION,

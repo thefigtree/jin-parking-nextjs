@@ -3,11 +3,11 @@
 import { SearchParams } from "@/components/search-bar";
 import { BookingModel } from "@/schemas/booking-parking";
 import {
-  LocationParking,
-  LocationParkingModel,
+  ParkingLocation,
+  ParkingLocationModel,
 } from "@/schemas/location-parking";
 import { connectToDB } from "@/service/db";
-import { BookingStatus, LocationParkingStatus } from "@/types/enum";
+import { BookingStatus, ParkingLocationStatus } from "@/types/enum";
 import { UpdateLocationParams } from "@/types/location";
 import { revalidatePath } from "next/cache";
 
@@ -20,13 +20,13 @@ export async function toggleLocation({
 }) {
   await connectToDB();
 
-  const location = await LocationParkingModel.findById<LocationParking>(id);
+  const location = await ParkingLocationModel.findById<ParkingLocation>(id);
 
   if (location) {
     location.status =
-      location.status === LocationParkingStatus.AVAILABLE
-        ? LocationParkingStatus.NOTAVAILABLE
-        : LocationParkingStatus.AVAILABLE;
+      location.status === ParkingLocationStatus.AVAILABLE
+        ? ParkingLocationStatus.NOTAVAILABLE
+        : ParkingLocationStatus.AVAILABLE;
 
     const result = await location.save();
 
@@ -47,7 +47,7 @@ export async function locationDelete({
 }) {
   await connectToDB();
 
-  const deleteResult = await LocationParkingModel.findByIdAndDelete(id);
+  const deleteResult = await ParkingLocationModel.findByIdAndDelete(id);
 
   if (deleteResult) {
     revalidatePath(path);
@@ -68,7 +68,7 @@ export async function locationUpdate({
   try {
     await connectToDB();
 
-    await LocationParkingModel.updateOne(
+    await ParkingLocationModel.updateOne(
       {
         _id: id,
       },
@@ -101,7 +101,7 @@ export async function findNearbyLocations(
       `${searchParams.arrivingon}T${searchParams.leavingtime}`
     );
 
-    const parkingLocations: LocationParking[] = await LocationParkingModel.find(
+    const parkingLocations: ParkingLocation[] = await ParkingLocationModel.find(
       {
         location: {
           $nearSphere: {
@@ -112,15 +112,15 @@ export async function findNearbyLocations(
                 searchParams.gpscoords.lat,
               ],
             },
-            $maxDistance: maxDistance,
+            $maxDistance: maxDistance, // meters
           },
         },
       }
     );
 
     const availableLoc = await Promise.all(
-      parkingLocations.map(async (location: LocationParking) => {
-        const booking = await BookingModel.find({
+      parkingLocations.map(async (location: ParkingLocation) => {
+        const bookings = await BookingModel.find({
           locationid: location._id,
           status: BookingStatus.BOOKED,
           starttime: {
@@ -131,14 +131,14 @@ export async function findNearbyLocations(
           },
         }).lean();
 
-        if (booking.length < location.numOfSpots) {
-          return { ...location, ...{ bookedspots: booking.length } };
+        if (bookings.length < location.numberofspots) {
+          return { ...location, ...{ bookedspots: bookings.length } };
         } else {
           return {
             ...location,
             ...{
-              bookedspots: booking.length,
-              status: LocationParkingStatus.FULL,
+              bookedspots: bookings.length,
+              status: ParkingLocationStatus.FULL,
             },
           };
         }

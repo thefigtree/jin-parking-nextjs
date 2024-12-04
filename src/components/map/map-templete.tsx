@@ -27,8 +27,8 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
 
   const mapRef = useRef<HTMLDivElement>(null);
 
-  const getPinType = (location: MapParams): string => {
-    return location.type === MapAddressType.DESTINATION
+  const getPinType = (loc: MapParams): string => {
+    return loc.type === MapAddressType.DESTINATION
       ? "parking_destination_tr"
       : "parking_pin_tr";
   };
@@ -72,7 +72,7 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
           buildMapInfoCardContent(
             getStreetFromAddress(loc.address),
             loc.address,
-            loc.numOfSpots as number,
+            loc.numberofspots as number,
             loc.price?.hourly as number
           )
         );
@@ -84,7 +84,7 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
           buildMapInfoCardContent(
             getStreetFromAddress(loc.address),
             loc.address,
-            loc.numOfSpots as number,
+            loc.numberofspots as number,
             loc.price?.hourly as number
           )
         );
@@ -95,7 +95,7 @@ export default function MapTemplete({ mapParams }: { mapParams: string }) {
           strokeColor: "#00FF00",
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: "rgb(0, 255, 255)",
+          fillColor: "#0FF000",
           fillOpacity: 0.35,
           map,
           center: {

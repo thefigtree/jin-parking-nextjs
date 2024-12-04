@@ -19,7 +19,7 @@ const BookingSchema = new Schema<Booking>(
   {
     locationid: {
       type: mongoose.Types.ObjectId,
-      ref: "LocationParking",
+      ref: "ParkingLocation",
       default: null,
     },
     userid: String,

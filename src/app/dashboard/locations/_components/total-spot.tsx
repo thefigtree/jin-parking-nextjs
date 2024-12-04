@@ -6,7 +6,7 @@ import { formatAmountForDisplay } from "@/lib/utils";
 import { useSpotStore } from "@/store";
 import { spotPropsType } from "@/types/step";
 
-export default function TotalSpot({ onPrev }: spotPropsType) {
+export default function TotalSpot({ onNext, onPrev }: spotPropsType) {
   const spotStore = useSpotStore();
 
   return (
@@ -14,7 +14,7 @@ export default function TotalSpot({ onPrev }: spotPropsType) {
       <h2 className="text-xl sm:text-2xl py-4 font-semibold">등록 장소 정보</h2>
       <div className="flex flex-col gap-y-2 text-lg text-muted-foreground">
         <p>{spotStore.data.address}</p>
-        <p>주차 공간 수: {spotStore.data.numOfSpots}</p>
+        <p>주차 공간 수: {spotStore.data.numberofspots}</p>
         <p>
           시간 당:{" "}
           {formatAmountForDisplay(spotStore.data.price?.hourly!, "WON")}

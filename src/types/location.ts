@@ -9,7 +9,7 @@ export type Price = {
 
 export type UpdateLocationParams = {
   address: string;
-  numOfSpots: number;
+  numberofspots: number;
   price: {
     hourly: number;
   };
@@ -19,7 +19,7 @@ export type MapParams = {
   id: string;
   gpscoords: LatLng;
   address: string;
-  numOfSpots?: number;
+  numberofspots?: number;
   bookedspots?: number;
   price?: Price;
   type?: string;
