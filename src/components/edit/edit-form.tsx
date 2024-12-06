@@ -83,7 +83,7 @@ export default function EditForm({ location }: { location: string }) {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input {...field}></Input>
+                  <Input {...field} placeholder="입력창"></Input>
                 </FormControl>
                 <FormMessage></FormMessage>
               </FormItem>
