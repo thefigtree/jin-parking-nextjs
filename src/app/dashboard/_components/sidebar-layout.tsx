@@ -17,7 +17,7 @@ export default function SidebarLayout({
       <div className="flex w-full bg-yellow-500 h-12 lg:hidden p-2 text-white">
         <Menu onClick={() => setOpen((open) => !open)}></Menu>
 
-        <h1 className="text-2xl pl-4">Dashboard</h1>
+        <h1 className="text-2xl pl-4">관리자 모드</h1>
       </div>
 
       <div className="flex h-screen">
