@@ -57,7 +57,7 @@ export default function NumberSpot({ onNext, onPrev }: spotPropsType) {
               <FormItem>
                 <FormControl>
                   <Input
-                    {...field}
+                    {...(field || "")}
                     placeholder="원하는 주차공간 수를 입력하세요."
                   ></Input>
                 </FormControl>
