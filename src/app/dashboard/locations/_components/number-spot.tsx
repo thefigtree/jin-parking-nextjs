@@ -70,7 +70,7 @@ export default function NumberSpot({ onNext, onPrev }: spotPropsType) {
             <Button type="button" onClick={onPrev} variant="ghost">
               &lt; 이전
             </Button>
-            <Button type="submit" onClick={onNext} variant="ghost">
+            <Button type="button" onClick={onNext} variant="ghost">
               다음 &gt;
             </Button>
           </div>

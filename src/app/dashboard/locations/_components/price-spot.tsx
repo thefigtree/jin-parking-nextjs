@@ -70,7 +70,7 @@ export default function PriceSpot({ onNext, onPrev }: spotPropsType) {
             <Button type="button" onClick={onPrev} variant="ghost">
               &lt; 이전
             </Button>
-            <Button type="submit" variant="ghost">
+            <Button type="button" variant="ghost">
               다음 &gt;
             </Button>
           </div>
