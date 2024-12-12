@@ -13,7 +13,7 @@ export default function NavigationBar() {
       <div className="flex items-center justify-between px-8">
         <header>
           <h1 className="text-2xl font-bold sm:text-4xl pt-3">
-            <Link href="/">Parking</Link>
+            <Link href="/">주차마블</Link>
           </h1>
         </header>
 
