@@ -116,7 +116,7 @@ export async function findNearbyLocations(
           },
         },
       }
-    );
+    ).lean();
 
     const availableLoc = await Promise.all(
       parkingLocations.map(async (location: ParkingLocation) => {
@@ -133,7 +133,7 @@ export async function findNearbyLocations(
 
         if (bookings.length < location.numberofspots) {
           return { ...location, ...{ bookedspots: bookings.length } };
-        } else {
+        } else
           return {
             ...location,
             ...{
@@ -141,7 +141,6 @@ export async function findNearbyLocations(
               status: ParkingLocationStatus.FULL,
             },
           };
-        }
       })
     );
 

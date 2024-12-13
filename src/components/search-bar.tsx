@@ -61,7 +61,7 @@ export default function SearchBar() {
       setSearch([...mapParams]);
       setSearchParams(params);
     } else {
-      setMessage("근처에 주차장이 없습니다.");
+      setMessage("근처에 주차 가능한 공간이 없습니다.");
     }
   };
 
