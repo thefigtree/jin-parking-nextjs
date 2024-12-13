@@ -70,7 +70,7 @@ export default function SearchBar() {
       <SearchForm onSearch={handleSearch}></SearchForm>
       {search.length > 0 ? (
         <div className="flex">
-          <div className="p-1 flex-none w-56 overflow-auto h-[600px]">
+          <div className="p-1 w-56 overflow-auto h-[600px]">
             결과를 불러 왔습니다.
           </div>
           <div className="flex-1">
