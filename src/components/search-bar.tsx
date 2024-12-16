@@ -7,7 +7,7 @@ import { findNearbyLocations } from "@/actions/action";
 import { ParkingLocation } from "@/schemas/location-parking";
 import { MapAddressType } from "@/types/enum";
 import MapTemplete from "./map/map-templete";
-import ClientResult from "./client-result";
+import ClientResult from "./location/client-result";
 
 export type SearchParams = {
   address: string;
