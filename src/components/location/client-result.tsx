@@ -8,7 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { formatAmountForDisplay, getStreetFromAddress } from "@/lib/utils";
+import { cn, formatAmountForDisplay, getStreetFromAddress } from "@/lib/utils";
+import Link from "next/link";
+import { buttonVariants } from "../ui/button";
 
 export default function ClientResult({
   locations,
@@ -42,7 +44,33 @@ export default function ClientResult({
                       {formatAmountForDisplay(loc.price?.hourly!, "WON")}
                     </p>
                   </div>
+
+                  <div className="grid grid-cols-2">
+                    <p className="text-sm">남은 주차공간:</p>
+                    <p className="text-sm">
+                      {loc.numberofspots! - loc.bookedspots!}
+                    </p>
+                  </div>
                 </div>
+
+                <hr></hr>
+
+                {params && (
+                  <Link
+                    href={`book/${loc.id}?날짜=${params.arrivingon}&대여시간=${params.arrivingtime}&반납시간=${params.leavingtime}`}
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "bg-primary text-white",
+                      `${
+                        loc.numberofspots! - loc.bookedspots! === 0
+                          ? "hidden"
+                          : "flex"
+                      }`
+                    )}
+                  >
+                    예약하기
+                  </Link>
+                )}
               </div>
             </CardContent>
           </Card>

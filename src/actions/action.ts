@@ -150,3 +150,15 @@ export async function findNearbyLocations(
     throw error;
   }
 }
+
+export async function getParkingLocation(id: string) {
+  try {
+    connectToDB();
+
+    const location = await ParkingLocationModel.findById(id);
+
+    return JSON.parse(JSON.stringify(location));
+  } catch (error) {
+    console.log(error);
+  }
+}
