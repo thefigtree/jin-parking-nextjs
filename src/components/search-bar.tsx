@@ -7,6 +7,7 @@ import { findNearbyLocations } from "@/actions/action";
 import { ParkingLocation } from "@/schemas/location-parking";
 import { MapAddressType } from "@/types/enum";
 import MapTemplete from "./map/map-templete";
+import ClientResult from "./client-result";
 
 export type SearchParams = {
   address: string;
@@ -71,7 +72,10 @@ export default function SearchBar() {
       {search.length > 0 ? (
         <div className="flex">
           <div className="p-1 w-56 overflow-auto h-[600px]">
-            결과를 불러 왔습니다.
+            <ClientResult
+              locations={search}
+              params={searchParams as SearchParams}
+            ></ClientResult>
           </div>
           <div className="flex-1">
             <MapTemplete mapParams={JSON.stringify(search)}></MapTemplete>
