@@ -1,6 +1,7 @@
 "use client";
 
 import { getParkingLocation } from "@/actions/action";
+import { Form } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import { getStreetFromAddress } from "@/lib/utils";
 import { ParkingLocation } from "@/schemas/location-parking";
@@ -9,7 +10,7 @@ import { differenceInMinutes, format } from "date-fns";
 import { ArrowRight } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const FormSchema = z.object({
@@ -99,6 +100,21 @@ export default function BookPage() {
             </p>
           </div>
         </div>
+
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="bg-white w-[400px] sm:w-[700px] border p-4 shadow flex flex-col pt-12 pb-12 space-y-4"
+          >
+            <div>
+              {location && (
+                <p className="font-bold text-xl">
+                  {getStreetFromAddress(location.address)}
+                </p>
+              )}
+            </div>
+          </form>
+        </Form>
       </main>
     </div>
   );
