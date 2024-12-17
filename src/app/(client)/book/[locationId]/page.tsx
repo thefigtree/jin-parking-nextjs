@@ -1,9 +1,11 @@
 "use client";
 
 import { getParkingLocation } from "@/actions/action";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,7 +16,7 @@ import { formatAmountForDisplay, getStreetFromAddress } from "@/lib/utils";
 import { ParkingLocation } from "@/schemas/location-parking";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { differenceInMinutes, format } from "date-fns";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -149,17 +151,23 @@ export default function BookPage() {
               name="platenum"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>내 번호판</FormLabel>
+                  <FormLabel>차량 번호판</FormLabel>
                   <FormControl>
                     <Input
                       className="uppercase"
-                      placeholder="asdas"
+                      placeholder="차량 번호판을 입력하세요."
                       {...field}
                     ></Input>
                   </FormControl>
+                  <FormDescription>
+                    등록된 차량의 번호판이 일치하지 않는 경우, 불법 주정차 및
+                    주차위반으로 간주 되어 과태료가 부과될 수 있습니다.
+                  </FormDescription>
                 </FormItem>
               )}
             ></FormField>
+
+            {loading ? <Loader></Loader> : <Button>결제하기</Button>}
           </form>
         </Form>
       </main>
