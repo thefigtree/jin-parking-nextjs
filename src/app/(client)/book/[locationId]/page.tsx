@@ -1,9 +1,16 @@
 "use client";
 
 import { getParkingLocation } from "@/actions/action";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { getStreetFromAddress } from "@/lib/utils";
+import { formatAmountForDisplay, getStreetFromAddress } from "@/lib/utils";
 import { ParkingLocation } from "@/schemas/location-parking";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { differenceInMinutes, format } from "date-fns";
@@ -113,6 +120,46 @@ export default function BookPage() {
                 </p>
               )}
             </div>
+
+            <div className="flex flex-col bg-yellow-200 p-4 gap-y-2 rounded">
+              <div className="flex justify-between text-sm font-bold">
+                <p>시간 당</p>
+                <p>
+                  {location
+                    ? formatAmountForDisplay(location.price.hourly, "WON")
+                    : "...."}
+                </p>
+              </div>
+
+              <div className="flex justify-between text-sm font-bold">
+                <p>{calculatingHours} 시간</p>
+                <p>
+                  {location
+                    ? formatAmountForDisplay(
+                        calculatingHours * location.price.hourly,
+                        "WON"
+                      )
+                    : "...."}
+                </p>
+              </div>
+            </div>
+
+            <FormField
+              control={form.control}
+              name="platenum"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>내 번호판</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="uppercase"
+                      placeholder="asdas"
+                      {...field}
+                    ></Input>
+                  </FormControl>
+                </FormItem>
+              )}
+            ></FormField>
           </form>
         </Form>
       </main>
