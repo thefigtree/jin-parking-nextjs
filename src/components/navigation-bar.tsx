@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -6,6 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
+import { SignedOut, SignInButton } from "@clerk/nextjs";
+import { SignedIn, UserButton } from "@clerk/clerk-react";
 
 export default function NavigationBar() {
   return (
@@ -40,7 +44,12 @@ export default function NavigationBar() {
           <div className="hidden sm:flex gap-x-4 items-center">
             <Link href="/mybookings">내 예약 목록</Link>
             <Link href="/dashboard">관리자 모드</Link>
-            로그아웃 로그인
+            <SignedOut>
+              <SignInButton></SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton></UserButton>
+            </SignedIn>
           </div>
         </div>
       </div>
