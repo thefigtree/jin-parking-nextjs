@@ -12,6 +12,7 @@
 - Db: Mongo DB
 - State Management: Zustand
 - Api: Google Maps Api
+- 로그인 기능: Clerk
 
 <br>
 
@@ -24,3 +25,5 @@
 - 협소한 화면 공간
 - 많은 질문 수
 - 조건부 질문
+
+### Clerk (웹 애플리케이션을 위한 사용자 인증 및 관리 플랫폼 + 개발자가 쉽게 통합할 수 있는 API와 SDK를 제공하여 사용자 등록, 로그인, 프로필 관리, 세션 관리 등을 간편하게 처리할 수 있게 해줌.)
