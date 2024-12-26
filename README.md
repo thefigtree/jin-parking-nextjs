@@ -12,7 +12,7 @@
 - Db: Mongo DB
 - State Management: Zustand
 - Api: Google Maps Api
-- 로그인 기능: Clerk
+- Admin: Clerk
 
 <br>
 
