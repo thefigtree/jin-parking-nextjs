@@ -9,6 +9,7 @@ import {
 import { connectToDB } from "@/service/db";
 import { BookingStatus, ParkingLocationStatus } from "@/types/enum";
 import { UpdateLocationParams } from "@/types/location";
+import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 export async function toggleLocation({
@@ -160,5 +161,18 @@ export async function getParkingLocation(id: string) {
     return JSON.parse(JSON.stringify(location));
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function checkingAdmin() {
+  try {
+    const user = await currentUser();
+
+    if (!user) {
+      throw new Error("로그인을 해주세요.");
+    }
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 }
